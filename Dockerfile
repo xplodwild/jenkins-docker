@@ -7,7 +7,7 @@ USER root
 
 # Install the latest Docker CE binaries and add user `jenkins` to the docker group
 RUN apt-get update && \
-    apt-get -y --no-install-recommends install apt-transport-https \
+    apt-get -y --no-install-recommends install shellcheck apt-transport-https \
       ca-certificates \
       curl \
       gnupg2 \
@@ -19,8 +19,16 @@ RUN apt-get update && \
       stable" && \
    apt-get update && \
    apt-get -y --no-install-recommends install docker-ce && \
-   apt-get clean && \
    usermod -aG docker jenkins
+   
+# Install NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    rm nodesource_setup.sh && \
+    apt install -y nodejs
+
+# Clean up
+RUN apt-get clean
 
 # drop back to the regular jenkins user - good practice
 USER jenkins
