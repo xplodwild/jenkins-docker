@@ -22,7 +22,7 @@ RUN apt-get update && \
    usermod -aG docker jenkins
    
 # Install NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh && \
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     rm nodesource_setup.sh && \
     apt install -y nodejs
